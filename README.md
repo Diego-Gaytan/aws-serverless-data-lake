@@ -1,2 +1,41 @@
-# aws-serverless-data-lake
-Data Lake Serverless y Optimización de Costos en AWS
+## aws-serverless-data-lake
+# Data Lake Serverless y Optimización de Costos en AWS
+
+Diseño e implementación de una arquitectura de Data Lake Serverless utilizando Amazon S3, AWS Glue y Amazon Athena. El proyecto se centra en la ingesta de datos crudos de ventas, la automatización del descubrimiento de esquemas (schema discovery) y la optimización del rendimiento y costos de las consultas mediante la transformación de datos al formato Parquet (Columnar).
+
+# Arquitectura:
+
+* **Almacenamiento:** Amazon S3 (Arquitectura por capas: Raw vs Curated).
+* **ETL/Descubrimiento:** AWS Glue Crawlers para la inferencia automática del esquema.
+* **Analítica:** Amazon Athena (SQL Serverless).
+* **Optimización:** Apache Parquet (Almacenamiento columnar) y Compresión Snappy.
+
+| Métrica | CSV (Basado en Filas) | Parquet (Columnar) | Mejora |
+| :--- | :--- | :--- | :--- |
+| **Datos Escaneados** | 341 KB | 61 KB | **~82% de Reducción** |
+| **Costo** | 100% (Referencia) | ~18% | **82% Más Barato** |
+| **Rendimiento** | Escaneo Completo | Escaneo Selectivo | **Más Rápido** |
+
+## Al convertir los datos históricos a formato Parquet, logre una reducción del 82% en los costos de escaneo de datos para consultas analíticas.
+
+# Detalles de Implementación
+* **1. Ingesta de Datos (Data Ingestion)**
+   * Se generaron datos sintéticos de ventas utilizando un script de Python (src/generador_datos.py) y se almacenaron en un Bucket de S3 (zona /raw).
+
+* **2. Descubrimiento de Esquema (Schema Discovery)**
+   * Se configuró un AWS Glue Crawler para recorrer el bucket de S3, inferir los tipos de datos (String, Int, Float) y poblar automáticamente el AWS Glue Data Catalog.
+
+* **3. Estrategia de Optimización (CTAS)**
+   * Se utilizó Athena para transformar los datos CSV a formato Parquet utilizando una sentencia CTAS (Create Table As Select), moviendo los datos a la zona curated
+ 
+   * CREATE TABLE "ventas_parquet"
+WITH (
+      format = 'PARQUET',
+      external_location = 's3://.../curated/'
+) AS
+SELECT * FROM "raw_data";
+
+# TECH STACK (Tecnologías)
+* Nube: AWS
+* Lenguajes: SQL, Python
+* Servicios: S3, Athena, Glue
