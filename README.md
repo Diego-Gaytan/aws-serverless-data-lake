@@ -16,7 +16,7 @@ Diseño e implementación de una arquitectura de Data Lake Serverless utilizando
 | **Costo** | 100% (Referencia) | ~18% | **82% Más Barato** |
 | **Rendimiento** | Escaneo Completo | Escaneo Selectivo | **Más Rápido** |
 
-## Al convertir los datos históricos a formato Parquet, logre una reducción del 82% en los costos de escaneo de datos para consultas analíticas.
+## Al convertir los datos históricos a formato Parquet, logré una reducción del 82% en los costos de escaneo de datos para consultas analíticas.
 
 # Detalles de Implementación
 * **1. Ingesta de Datos (Data Ingestion)**
@@ -35,7 +35,13 @@ WITH (
 ) AS
 SELECT * FROM "raw_data";
 
-# TECH STACK (Tecnologías)
+# DINERO PERDIDO (Falta de optimización)
+<img width="1389" height="673" alt="Captura de pantalla 2026-02-09 a la(s) 3 11 05 p m" src="https://github.com/user-attachments/assets/6d1a103e-e2ae-406c-8433-394eb2f1a416" />
+
+# COSTO AHORRADO (Consulta optimizada)
+<img width="1390" height="684" alt="Captura de pantalla 2026-02-09 a la(s) 3 12 36 p m" src="https://github.com/user-attachments/assets/062abb16-bab5-41f4-9b10-3118f5e58781" />
+
+# Tech Stack (Tecnologías)
 * Nube: AWS
 * Lenguajes: SQL, Python
 * Servicios: S3, Athena, Glue
